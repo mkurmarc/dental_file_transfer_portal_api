@@ -6,6 +6,12 @@ from .. import database, schemas, models, utils, oauth2
 
 router = APIRouter(tags=['Authentication'])
 
+
+@router.get('/login')
+def get_login_page():
+    return
+
+
 @router.post('/login', response_model=schemas.Token)
 def login(user_credentials: OAuth2PasswordRequestForm = Depends(),
 db: Session = Depends(database.get_db)):
