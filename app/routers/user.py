@@ -1,7 +1,8 @@
+from fastapi import status, HTTPException, APIRouter
 from sys import prefix
-from fastapi import status, APIRouter
-from .. import models, schemas, utils
-from sqlalchemy.orm import Session
+from fastapi import Request
+from fastapi.responses import HTMLResponse
+
 
 
 # prefix = adds the string to the beginning of each path op
@@ -12,10 +13,18 @@ router = APIRouter(
 )
 
 # path op GETs the create user page to render
-@router.get("/create_user") 
-def create_user():
-    
-    return
+@router.get("/create_user", response_class=HTMLResponse) 
+async def serve_page():
+    return """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """
 
 # path op when user is done filling out form and hits 'done' button
 @router.post('/create_user')
