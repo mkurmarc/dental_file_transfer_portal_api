@@ -4,14 +4,16 @@ from sqlalchemy.orm import Session
 # from .. import database, schemas, models, utils, oauth2
 
 
-router = APIRouter(tags=['Authentication'])
+router = APIRouter(
+    prefix="/login",
+    tags=['Authentication'])
 
 
-@router.get('/login')
+@router.get('/')
 def get_login_page():
     return
 
 
-@router.post('/login', )
+@router.post('/')
 def login():
     return  #return token
