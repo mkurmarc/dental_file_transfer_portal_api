@@ -21,7 +21,3 @@ app.mount(
 app.include_router(user.router)
 app.include_router(auth.router)
 
-'''
-USE JINJA, SEE STACK OVERFLOW SOLUTION
-
-'''
