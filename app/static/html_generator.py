@@ -122,42 +122,35 @@ def gen_upload():
         <head>
             <title>Upload Page</title>
             <style>
+
                 body {
                     background: #1D1E1D;
-                    display: flex;
-                    justify-content: center;
+                    text-align: center;
+                    margin-top: 30px;
                 }
 
-                .container {
-                    width: 35%;
-                    height: 35%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center; 
-                    gap: 10px;
-                }
-
-                .items {
-                    width: 100%;
-                    height: 12%
+                #upload-wrapper {
+                    text-align: center;
+                    color: white;
                 }
 
                 h1 {
                     color: silver;
-                    align-self: center;
+        
                 }
 
-                button {
-                    border-radius: 8px;
-                }
             </style>
         </head>
 
         <body>
+        <h1>Upload Files</h1>
+        <div id="upload-wrapper">            
             <form action="/uploadfiles" enctype="multipart/form-data" method="post">
                 <input name="files" type="file" multiple>
-                <input type="submit">
+                <input type="submit" value="Upload" formaction="">
             </form>
+        </div>
+
         </body>
 
     </html>
