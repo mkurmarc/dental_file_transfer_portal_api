@@ -147,7 +147,7 @@ def gen_upload():
         <div id="upload-wrapper">            
             <form action="/uploadfiles" enctype="multipart/form-data" method="post">
                 <input name="files" type="file" multiple>
-                <input type="submit" value="Upload" formaction="">
+                <input type="submit" value="Upload">
             </form>
         </div>
 
@@ -155,4 +155,61 @@ def gen_upload():
 
     </html>
     """
+    return HTMLResponse(content=html_content, status_code=200)
+
+
+def gen_admin_dashboard():
+    html_content = """
+        <html>
+            <head>
+                <title>Admin Dashboard</title>
+                <style>
+                    body {
+                        background: #1D1E1D;
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .sidebar {
+                        position: absolute;
+                        width: 199px;
+                        height: 1014px;
+                        left: 0px;
+                        top: 0px;
+                        background: #C4C4C4;
+                    }
+
+                    #current_user_img {
+                        position: absolute;
+                        width: 81px;
+                        height: 81px;
+                        left: 59px;
+                        top: 105px;
+                        background: #FFFFFF;
+                    }
+
+                    img {
+                        position: absolute;
+                        width: 67px;
+                        height: 67px;
+                        left: 66px;
+                        top: 112px;
+                    }
+
+                    h1 {
+                        color: silver;
+                        align-self: center;
+                    }
+                </style>
+            </head>
+
+            <body>
+                <h1>Admin Dashboard</h1>
+                <div class="sidebar"></div>
+                <div id="current_user_img"><img src="img\profile_img.jpg" alt=""></div>
+            </body>
+
+        </html>
+    """
+    # url(img\profile_img.jpg)
     return HTMLResponse(content=html_content, status_code=200)

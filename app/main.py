@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
 from app.routers import auth, upload_files, user
+from app.internal import admin
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 
@@ -21,4 +22,5 @@ app.mount(
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(upload_files.router)
+app.include_router(admin.router)
 

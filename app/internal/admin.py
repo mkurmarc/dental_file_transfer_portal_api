@@ -1,24 +1,17 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, File
 from fastapi.responses import HTMLResponse
+from app.static.html_generator import gen_admin_dashboard
 
 
 router = APIRouter(
-    prefix="/admin"
+    prefix="/admin",
+    tags=["Administrator"]
 )
 
 # routes for admin only users
 @router.get("/", response_class=HTMLResponse)
-async def get_admin_dashboard():
-    return """
-    <html>
-        <head>
-            <title>Some HTML in here</title>
-        </head>
-        <body>
-            <h1>ADMIN DASHBOARD, GET RESPONSE</h1>
-        </body>
-    </html>
-    """
+async def get_admin_dashboard():    
+    return gen_admin_dashboard()
 
 
 @router.post("/")
