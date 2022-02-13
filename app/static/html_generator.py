@@ -209,6 +209,7 @@ def gen_admin_dashboard():
                 <div id="current_user_img"><img src="img\profile_img.jpg" alt=""></div>
             </body>
 
+
         </html>
     """
     # url(img\profile_img.jpg)
