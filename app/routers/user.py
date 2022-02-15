@@ -12,12 +12,6 @@ router = APIRouter(
     tags=['User']
 )
 
-
-@router.get("/login", response_class=HTMLResponse) 
-async def get_login_page():
-    return gen_login()
-
-
 # path op GETs the create user page to render
 @router.get("/create", response_class=HTMLResponse) 
 async def get_create_page():
