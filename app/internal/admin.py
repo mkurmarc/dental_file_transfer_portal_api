@@ -1,6 +1,7 @@
 from fastapi import APIRouter, File
 from fastapi.responses import HTMLResponse
 from app.static.html_generator import gen_admin_dashboard
+from .. import schemas
 
 
 router = APIRouter(
@@ -10,7 +11,7 @@ router = APIRouter(
 
 # routes for admin only users
 @router.get("/", response_class=HTMLResponse)
-async def get_admin_dashboard():    
+async def get_admin_dashboard(token: schemas.Token):    
     return gen_admin_dashboard()
 
 

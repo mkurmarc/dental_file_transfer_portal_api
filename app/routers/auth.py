@@ -12,12 +12,21 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_class=HTMLResponse) 
+@router.get("/user", response_class=HTMLResponse) 
 async def get_login_page():
     return gen_login()
 
-
 # returns user upload page if credentials verfied
-@router.post("/") 
+@router.post("/user") 
+async def get_upload_page():
+    return # gen_upload_page
+
+
+@router.get("/admin", response_class=HTMLResponse) 
+async def get_admin_login():
+    return gen_login()
+
+# returns admin page if credentials verfied
+@router.post("/admin") 
 async def get_upload_page():
     return # gen_upload_page
