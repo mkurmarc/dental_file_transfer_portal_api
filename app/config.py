@@ -16,3 +16,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+# settings.database_password 
