@@ -1,14 +1,15 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, FileResponse
 from app.routers import auth, upload_files, user
 from app.internal import admin
+from .database import engine
+from . import models
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 
-BASE_PATH = Path(__file__).resolve().parent
-TEMPLATES = Jinja2Templates(directory="app/static")
-
+# BASE_PATH = Path(__file__).resolve().parent
+# TEMPLATES = Jinja2Templates(directory="app/static")
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -18,9 +19,7 @@ app.mount(
     name="static"
 )
 
-
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(upload_files.router)
 app.include_router(admin.router)
-
