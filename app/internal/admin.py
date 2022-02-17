@@ -11,7 +11,7 @@ router = APIRouter(
 
 # routes for admin only users
 @router.get("/", response_class=HTMLResponse)
-async def get_admin_dashboard(token: schemas.Token):
+async def get_admin_dashboard():
     # if token valid    
     return gen_admin_dashboard()
 

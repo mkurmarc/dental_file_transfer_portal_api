@@ -725,61 +725,599 @@ def gen_upload():
 
 
 def gen_admin_dashboard():
-
+    
     html_content = """
         <html>
-            <head>
-                <title>Admin Dashboard</title>
-                <style>
-                    body {
-                        background: #1D1E1D;
-                        display: flex;
-                        justify-content: center;
-                    }
 
-                    .sidebar {
-                        position: absolute;
-                        width: 199px;
-                        height: 1014px;
-                        left: 0px;
-                        top: 0px;
-                        background: #C4C4C4;
-                    }
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            transition: 0.4s ease-in-out;
+            font-family: Helvetica Neue, Helvetica, Arial, Verdana, sans-serif;
+            margin: 0;
+        }
 
-                    #current_user_img {
-                        position: absolute;
-                        width: 81px;
-                        height: 81px;
-                        left: 59px;
-                        top: 105px;
-                        background: #FFFFFF;
-                    }
+        html,
+        body {
+            height: 100%;
+            min-height: 100%;
+        }
 
-                    img {
-                        position: absolute;
-                        width: 67px;
-                        height: 67px;
-                        left: 66px;
-                        top: 112px;
-                    }
+        body {
+            background: #d9e4ee;
+        }
 
-                    h1 {
-                        color: silver;
-                        align-self: center;
-                    }
-                </style>
-            </head>
+        #main-header {
+            position: fixed;
+            height: 100px;
+            top: 0;
+            left: 300px;
+            right: 0;
+            box-shadow: 0 1px 0 #f1f1f1;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1;
+        }
 
-            <body>
-                <h1>Admin Dashboard</h1>
-                <div class="sidebar"></div>
-                <div id="current_user_img"><img src="img\profile_img.jpg" alt=""></div>
-            </body>
+        #header_logo {
+            margin: 20px auto;
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            text-indent: -5000px;
+            position: relative;
+            z-index: 0;
+            opacity: 1;
+        }
+
+        #header_logo:hover {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        #header_logo a {
+            display: block;
+            height: 100%;
+            width: 200%;
+            position: absolute;
+            border: 20px solid #0f92d1;
+            right: 0%;
+            border-radius: 50px;
+        }
+
+        #admin-search {
+            position: absolute;
+            height: 99px;
+            line-height: 100px;
+            right: 20px;
+            top: 0;
+            text-align: right;
+            z-index: 0;
+        }
+
+        #search-label {
+            display: block;
+            position: absolute;
+            text-align: center;
+            line-height: 40px;
+            width: 40px;
+            height: 40px;
+            left: -40px;
+            top: 30px;
+            color: #b0b0b0;
+            font-size: 20px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        #search-label:hover {
+            color: #0f92d1;
+        }
+
+        #search-field {
+            display: inline-block;
+            height: 60px;
+            font-size: 18px;
+            width: 0;
+            border: none;
+            outline: none;
+            opacity: 0;
+            background: transparent;
+        }
+
+        #search-field:focus {
+            width: 200px;
+            opacity: 1;
+        }
+
+        #search-field:focus+label {
+            color: #ef8700;
+        }
+
+        #sidenav {
+            position: fixed;
+            min-width: 300px;
+            height: 100%;
+            background-color: #35495d;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        #sidenav-header {
+            height: 100px;
+            line-height: 60px;
+            width: 100%;
+            background-color: #0f92d1;
+            padding: 20px 20px 20px 100px;
+            position: relative;
+        }
+
+        #profile-picture {
+            height: 60px;
+            width: 60px;
+            background-color: white;
+            display: block;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+        }
+
+        #profile-picture img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #profile-link {
+            text-decoration: none;
+            color: white;
+        }
+
+        #account-actions {
+            height: 100px;
+            width: 180px;
+            padding: 30px 0 0 20px;
+            position: absolute;
+            left: 100%;
+            top: 0;
+        }
+
+        #account-actions a {
+            display: block;
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 20px;
+            color: #b0b0b0;
+            width: 40px;
+            float: left;
+            overflow: visible;
+        }
+
+        #messages:before {
+            content: attr(data-newmessages);
+            display: block;
+            height: 14px;
+            width: 14px;
+            line-height: 16px;
+            border-radius: 14px;
+            position: absolute;
+            right: -2px;
+            font-size: 10px;
+            text-align: center;
+            font-weight: 200;
+            color: white;
+            background: #ef8700;
+        }
+
+        #menu-toggle {
+            height: 0px;
+            width: 0px;
+            position: fixed;
+            top: 30px;
+            left: 0;
+            margin-left: 20px;
+            line-height: 0px;
+            text-align: center;
+            font-size: 1px;
+            color: #b0b0b0;
+            overflow: hidden;
+            z-index: 500;
+            -webkit-transform: rotate(0deg);
+            box-shadow: 0 0 0 0 #0f92d1;
+        }
+
+        #menu-toggle .fa-times {
+            display: none;
+        }
+
+        .open-menu #menu-toggle .fa-times {
+            display: inline;
+        }
+
+        .open-menu #menu-toggle .fa-bars {
+            display: none;
+        }
+
+        #menu-toggle:hover {
+            color: #ef8700;
+        }
+
+        #account-actions a:after {
+            content: attr(data-title);
+            display: block;
+            width: 100px;
+            height: 0px;
+            text-align: center;
+            position: absolute;
+            left: -30px;
+            font-size: 12px;
+            bottom: 9px;
+            opacity: 0;
+            -webkit-transition: 0.25s ease-in-out;
+        }
+
+        #account-actions a:hover {
+            color: #ef8700;
+        }
+
+        #account-actions a:hover:after {
+            opacity: 1;
+            bottom: 14px;
+        }
+
+        #content {
+            padding: 150px 50px 50px 350px;
+        }
+
+        #content p {
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        #main-nav {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            top: 100px;
+            bottom: 0px;
+            overflow: scroll;
+        }
+
+        #main-nav li {
+            padding: 0;
+            margin: 0;
+        }
+
+        #main-nav li a {
+            display: block;
+            padding: 0 20px 0 100px;
+            text-decoration: none;
+            color: #98cde6;
+            position: relative;
+            text-transform: uppercase;
+            font-weight: 200;
+            line-height: 65px;
+        }
+
+        #main-nav li a:hover {
+            color: white;
+        }
+
+        #main-nav li.active a {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            box-shadow: inset 5px 0 0 #ef8700;
+        }
+
+        #main-nav li a .fa {
+            font-size: 30px;
+            position: absolute;
+            width: 60px;
+            height: 65px;
+            line-height: 65px;
+            text-align: center;
+            left: 20px;
+        }
+
+        #main-nav li.active a .fa {
+            color: #98cde6;
+        }
+
+        #content-header {
+            width: calc(100% + 100px);
+            height: 193px;
+            margin: -50px 0 0 -50px;
+            background: white;
+            padding: 50px;
+        }
+
+        #tabs ul {
+            list-style-type: none;
+            width: calc(100% + 100px);
+            height: 65px;
+            background: white;
+            padding: 0;
+            margin: 0 0 50px -50px;
+        }
+
+        #tabs li {
+            float: left;
+            line-height: 65px;
+            margin: 0 30px 0 0;
+            cursor: pointer;
+            text-transform: uppercase;
+            color: #748495;
+        }
+
+        #tabs li:first-of-type {
+            margin: 0 30px 0 50px;
+        }
+
+        #tabs li:hover {
+            color: #2f3e4d;
+        }
+
+        #tabs li.active {
+            box-shadow: inset 0 -5px 0 #ef8700;
+            color: #2f3e4d;
+        }
+
+        .tab-target {
+            width: 100%;
+            left: 0;
+            padding: 0 50px 50px 350px;
+            position: absolute;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .tab-target.targeted {
+            opacity: 1;
+        }
+
+        @media all and (max-width: 900px) {
+            #main-header {
+                left: 0px;
+            }
+
+            body.open-menu {
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+
+            .open-menu #main-header {
+                left: 300px;
+            }
+
+            #menu-overlay {
+                height: 100%;
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 100%;
+                background: transparent;
+                z-index: 499;
+            }
+
+            .open-menu #menu-overlay {
+                left: 300px;
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            #content {
+                position: relative;
+                left: 0;
+            }
+
+            .open-menu #content {
+                left: 300px;
+            }
+
+            #sidenav {
+                left: -300px;
+            }
+
+            .open-menu #sidenav {
+                left: 0;
+            }
+
+            #account-actions {
+                left: 0;
+                top: 100px;
+                width: 100%;
+            }
+
+            #menu-toggle {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                border-radius: 0 5px 5px 0;
+                font-size: 20px;
+            }
+
+            .open-menu #menu-toggle {
+                left: 300px;
+                color: #0f92d1;
+            }
+
+            #content {
+                padding: 130px 30px 30px 30px;
+            }
+
+            #main-nav {
+                margin: 65px 0 0 0;
+            }
+
+            #account-actions {
+                padding: 0px 0 0 25px;
+                background: #0f92d1;
+                height: 65px;
+            }
+
+            #account-actions a {
+                color: #69c0ea;
+            }
+
+            #account-actions a:hover {
+                color: white;
+            }
+
+            #content-header {
+                width: calc(100% + 60px);
+                height: 193px;
+                margin: -30px 0 0 -30px;
+                background: white;
+                padding: 30px;
+            }
+
+            #tabs ul {
+                width: calc(100% + 60px);
+                margin: 0 0 30px -30px;
+            }
+
+            #tabs li {
+                margin: 0 30px 0 0;
+            }
+
+            #tabs li:first-of-type {
+                margin: 0 30px 0 30px;
+            }
+
+            .tab-target {
+                padding: 0 50px 50px 50px;
+            }
+        }
+
+        @media all and (max-width: 580px) {
+            #header_logo.hidden {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
 
 
-        </html>
+<body>
+
+    <body>
+        <div id="menu-overlay"></div>
+        <div id="menu-toggle" class="closed" data-title="Menu">
+            <i class="fa fa-bars"></i>
+            <i class="fa fa-times"></i>
+        </div>
+        <header id="main-header">
+            <nav id="sidenav">
+                <div id="sidenav-header">
+                    <div id="profile-picture">
+                        <img src="" />
+                    </div>
+                    <a href="#" id="profile-link">Jesse Couch</a>
+                </div>
+                <div id="account-actions">
+                    <a href="#" data-title="Home"><i class="fa fa-home"></i></a>
+                    <a href="#" id="messages" data-title="Messages" data-newmessages="1"><i class="fa fa-inbox"></i></a>
+                    <a href="#" data-title="Settings"><i class="fa fa-cog"></i></a>
+                </div>
+                <ul id="main-nav">
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-tachometer"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-check-square-o"></i>
+                            Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            Contacts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-calendar"></i>
+                            Calendar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-life-ring"></i>
+                            FAQs
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <form id="admin-search">
+                <input type="text" id="search-field" placeholder="Search" />
+                <label for="search-field" id="search-label" title="Search"><i class="fa fa-search"></i></label>
+            </form>
+            <div id="header_logo">
+                <a href="#">Logo</a>
+            </div>
+        </header>
+        <section id="content">
+            <header id="content-header">
+                Header content
+            </header>
+            <nav id="tabs">
+                <ul>
+                    <li class="active" data-target="knowledge">Knowledge</li>
+                    <li data-target="activity">Activity</li>
+                    <li data-target="friends">Friends</li>
+                </ul>
+            </nav>
+            <div class="tab-target targeted" id="knowledge">
+                <p>Knowledge Content</p>
+                <p>Bushwick VHS single-origin coffee, direct trade selfies Tonx chillwave fashion axe McSweeney's roof
+                    party four loko Williamsburg ugh. Hashtag farm-to-table keytar, gentrify roof party Vice stumptown
+                    polaroid sriracha fingerstache Intelligentsia bitters. You probably haven't heard of them 8-bit
+                    pickled pug, cardigan photo booth Schlitz Kickstarter pork belly art party raw denim street art
+                    readymade single-origin coffee Carles. Banh mi Pinterest cliche, YOLO ennui quinoa salvia brunch
+                    messenger bag twee kitsch sartorial. Cornhole bitters chambray irony, wayfarers PBR&B disrupt Marfa.
+                    Austin ennui bespoke Schlitz shabby chic, meggings iPhone. Wes Anderson kale chips you probably
+                    haven't heard of them, freegan Vice scenester seitan Cosby sweater Schlitz pop-up dreamcatcher
+                    butcher artisan Truffaut roof party.</p>
+
+                <p>Flexitarian art party keffiyeh, PBR&B seitan Carles Godard XOXO cred Brooklyn pickled. YOLO synth
+                    butcher post-ironic, pop-up organic artisan banjo PBR try-hard dreamcatcher plaid messenger bag
+                    brunch distillery. McSweeney's cray squid, roof party Blue Bottle irony kitsch before they sold out
+                    lo-fi asymmetrical shabby chic twee Tonx pickled try-hard. Artisan hella you probably haven't heard
+                    of them selvage, jean shorts locavore photo booth fanny pack mumblecore flannel before they sold out
+                    semiotics. Intelligentsia sustainable semiotics fanny pack distillery chillwave deep v, VHS
+                    dreamcatcher biodiesel synth. Locavore quinoa American Apparel, tote bag skateboard bespoke Wes
+                    Anderson pork belly cliche cred Brooklyn blog authentic flexitarian. Try-hard cray Pitchfork, hella
+                    Truffaut flexitarian sartorial sriracha Williamsburg Cosby sweater plaid meggings Helvetica.</p>
+            </div>
+            <div class="tab-target" id="activity">
+                Activity Content
+            </div>
+            <div class="tab-target" id="friends">
+                Friends Content
+            </div>
+        </section>
+        <footer></footer>
+    </body>
+
+</body>
+
+
+</html>
     """
-    # url(img\profile_img.jpg)
     return HTMLResponse(content=html_content, status_code=200)
 
 
