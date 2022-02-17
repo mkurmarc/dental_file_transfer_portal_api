@@ -14,7 +14,7 @@ router = APIRouter(
 
 # returns login view
 @router.get("/", response_class=HTMLResponse) 
-async def get_login_page(db: Session = Depends(database.get_db)):
+async def get_login_page():
     return gen_login()
 
 # returns user upload page if credentials verfied
