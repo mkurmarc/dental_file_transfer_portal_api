@@ -22,9 +22,10 @@ class User(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
+    company_name = Column(String, nullable=False)
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
-    is_admin = Column(Boolean, server_default='TRUE', nullable=True)
+    is_admin = Column(Boolean, server_default='False', nullable=True)
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
 

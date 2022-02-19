@@ -232,7 +232,6 @@ def gen_create_user():
             <input class="items" type="text" name="last_name" placeholder="Last Name" size="30" required>
             <input class="items" type="text" name="company_name" placeholder="Company Name" size="50">
             <input class="items" type="email" name="email" placeholder="your@email.com" size="30" required>
-            <input class="items" type="email" name="confirm_email" placeholder="Confirm Email" size="30" required>
             <input class="items" type="password" name="password" placeholder="Password" size="20" required>
             <input class="items" type="password" name="confirm_password" placeholder="Confirm Password" size="20" required>
             <input type="submit" value="Submit" class="btn btn-primary btn-block btn-large">

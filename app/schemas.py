@@ -1,23 +1,31 @@
-from pydantic import BaseModel, EmailStr, SecretStr
+from pydantic import BaseModel, EmailStr, SecretStr, validator
 from typing import Optional
 
 '''auth routes''' 
 # incoming - user login info
 class UserLogin(BaseModel):
     email: EmailStr
-    password: SecretStr
+    password: str
 
 
 '''user routes'''
 # incoming - create user info
-class CreateUser(BaseModel):
+class UserCreate(BaseModel):
     first_name: str
     last_name: str
+    company_name: str
     email: EmailStr
-    confirm_email: EmailStr
-    password: SecretStr
-    confirm_password: SecretStr
-    isAccepted: bool
+    password: str
+    # confirm_password: str
+    @validator('password')
+    def username_alphanumeric(cls, v):
+        assert v.isalnum(), 'must be alphanumeric'
+        return v
+
+    # class Config: 
+    #     json_encoders = { # To be able to send SecretStr in a response model
+    #         SecretStr: lambda v: v.get_secret_value() if v else None
+    #     }
 
 '''upload_files routes'''
 # incoming - files and names assoc

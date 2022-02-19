@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
 # from app.schemas import UserLogin
 from app.static.html_generator import gen_create_user, gen_login, gen_upload
-from .. import database
+from .. import database, schemas, models, utils
 
 
 router = APIRouter(
@@ -23,6 +23,16 @@ async def login(
     user_credentials: OAuth2PasswordRequestForm = Depends(), 
     db: Session = Depends(database.get_db)
 ):
+    user = db.query(models.User).filter( # '.username' here because OAuth2PasswordRequestForm  
+        models.User.email == user_credentials.username).first() # saves the data under that variable name
+                                                                                                             
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials")
+
+    if not utils.verify(user_credentials.password, user.password):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials")
     if True: # creds and isUser are true
         return HTMLResponse(gen_upload)
       

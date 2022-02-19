@@ -1,9 +1,9 @@
-from fastapi import status, HTTPException, APIRouter, Query
-from sys import prefix
+from fastapi import status, Depends, APIRouter
 from fastapi import Request
-from fastapi.responses import HTMLResponse, FileResponse
-# from app.main import templates
-from app.static.html_generator import gen_create_user, gen_login
+from fastapi.responses import HTMLResponse
+from sqlalchemy.orm import Session
+from app.static.html_generator import gen_create_user
+from .. import database, schemas, models, utils
 
 # prefix = adds the string to the beginning of each path op
 # tags = is for the docs website for this api, it groups these path ops under 'Users' in the docs
@@ -13,12 +13,21 @@ router = APIRouter(
 )
 
 # path op GETs the create user page to render
-@router.get("/create", response_class=HTMLResponse) 
+@router.get("/", response_class=HTMLResponse) 
 async def get_create_page():
     return gen_create_user()
 
 
 # path op when user is done filling out form and hits 'done' button
-@router.post("/create")
-def create_user(username: str = Query(None, max_length=20), password: str = None):
-    return 
+@router.post("/", status_code=status.HTTP_201_CREATED)
+def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
+
+    new_user = models.User(**user.dict()) # convert 'user' to dictionary, then unpack it
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
