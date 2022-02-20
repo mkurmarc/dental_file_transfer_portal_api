@@ -18,7 +18,7 @@ async def get_create_page():
     return gen_create_user()
 
 
-# path op when user is done filling out form and hits 'done' button
+# creates new user
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
 

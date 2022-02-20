@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, SecretStr, validator
+from pydantic import BaseModel, EmailStr, Field, SecretStr, validator
 from typing import Optional
 
 '''auth routes''' 
@@ -16,7 +16,22 @@ class UserCreate(BaseModel):
     company_name: str
     email: EmailStr
     password: str
-    # confirm_password: str
+    confirm_password: str
+
+    class Config:
+        fields = {
+            'confirm_password':{
+            'exclude': ...,
+            }
+        }
+        min_anystr_length = 1
+        max_anystr_length = 50
+        error_msg_templated = {
+            'value_error.any_str.max_length': 'max_length:{limit_value}',
+        }
+        anystr_strip_whitespace = True
+
+
     @validator('password')
     def username_alphanumeric(cls, v):
         assert v.isalnum(), 'must be alphanumeric'
