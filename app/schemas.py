@@ -31,7 +31,6 @@ class UserCreate(BaseModel):
         }
         anystr_strip_whitespace = True
 
-
     @validator('password')
     def username_alphanumeric(cls, v):
         assert v.isalnum(), 'must be alphanumeric'
