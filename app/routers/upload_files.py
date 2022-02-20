@@ -1,21 +1,25 @@
-from fastapi import APIRouter, File
+from fastapi import APIRouter, File, Depends
 from fastapi.responses import HTMLResponse
 from fastapi import UploadFile
-from app.static.html_generator import gen_upload
+from sqlalchemy.orm import Session
+from ..static import html_generator
+from .. import database, schemas, models, utils, oauth2
+
 
 
 router = APIRouter(
+    prefix='/file',
     tags=['Upload Files']
 )
 
 
-@router.get("/uploadfiles", response_class=HTMLResponse)
-async def get_upload_page():
+@router.get("/", response_class=HTMLResponse)
+async def get_upload_page(upload: schemas.Upload, current_user: int = Depends(oauth2.get_current_user)):
 
-    return gen_upload()
+    return html_generator.gen_upload()
 
 
-@router.post("/uploadfiles")
+@router.post("/")
 async def create_upload_file(
     files: list[UploadFile] = File(..., description="Upload muitiple files")
 ):

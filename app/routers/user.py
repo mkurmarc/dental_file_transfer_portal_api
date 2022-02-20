@@ -12,9 +12,10 @@ router = APIRouter(
     tags=['User']
 )
 
+'''FIX: How do i send an email for user registration?'''
 # path op GETs the create user page to render
 @router.get("/", response_class=HTMLResponse) 
-async def get_create_page(current_user: int = Depends(oauth2.get_current_user)):
+async def get_create_page():
     return html_generator.gen_create_user()
 
 

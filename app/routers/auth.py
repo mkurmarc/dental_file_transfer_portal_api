@@ -8,7 +8,7 @@ from .. import database, schemas, models, utils, oauth2
 
 
 router = APIRouter(
-    prefix="/credentials",
+    prefix="/login",
     tags=['Authentication']
 )
 
@@ -17,7 +17,7 @@ router = APIRouter(
 async def get_login_page():
     return html_generator.gen_login()
 
-# returns user upload page if credentials verfied
+# returns user upload page if credentials verfiedcredentiuals
 @router.post("/") 
 def login(user_credentials: OAuth2PasswordRequestForm = Depends(), 
 db: Session = Depends(database.get_db)):
