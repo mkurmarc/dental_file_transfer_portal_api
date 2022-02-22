@@ -3,3 +3,4 @@ venv/
 .env
 .vscode
 app/static/scratch.html
+app/static/scratch_2.html

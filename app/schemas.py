@@ -1,3 +1,4 @@
+from fastapi import Form, UploadFile, File
 from pydantic import BaseModel, EmailStr, Field, SecretStr, validator
 from typing import Optional
 
@@ -41,12 +42,16 @@ class UserCreate(BaseModel):
     #         SecretStr: lambda v: v.get_secret_value() if v else None
     #     }
 
-'''upload_files routes'''
+'''/file route'''
 # incoming - files and names assoc
 class Upload(BaseModel):
-    first_name: str
-    last_name: str
-    # custom data type for files
+    patient_first_name: str = Form(...)
+    patient_last_name: str = Form(...)
+    file_name: str = Form(...)
+    files: list[UploadFile] = File(..., description="Upload muitiple files") 
+    ''' using UploadFile without bytes means the file will be saved in spooled memory in background which
+    is faster than uploading file using bytes. Can also save it to fastapi server, and can read and write 
+    the file.'''
 
 # incoming
 class Token(BaseModel):

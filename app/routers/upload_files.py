@@ -14,17 +14,20 @@ router = APIRouter(
 
 
 @router.get("/", response_class=HTMLResponse)
-async def get_upload_page(upload: schemas.Upload, current_user: int = Depends(oauth2.get_current_user)):
+async def get_upload_page(current_user: int = Depends(oauth2.get_current_user)):
 
     return html_generator.gen_upload()
 
 
 @router.post("/")
-async def create_upload_file(
-    files: list[UploadFile] = File(..., description="Upload muitiple files")
-):
+async def create_upload_file(upload: schemas.Upload):
+    print(upload.patient_first_name + upload.patient_last_name)
+    print(upload.files)
+    file_content = await upload.file.read()
 
-    return {"filenames": [file.filename for file in files]}
+    print(file_content)
+
+    # return {"filenames": [upload.file_name for file in upload.files]}
     # { "filenames": [filename1, filename2, filename3, ...] }
 
 
