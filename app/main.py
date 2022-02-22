@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from app.routers import auth, upload_files, user
 from app.internal import admin
+from app.schemas import Upload
 from .database import engine
 from . import models
 from fastapi.templating import Jinja2Templates
@@ -30,4 +31,5 @@ app.include_router(admin.router)
 # Home Page - temporary
 @app.get("/", response_class=HTMLResponse) 
 async def get_home():
+    print(Upload.schema_json(indent=2))
     return gen_home()

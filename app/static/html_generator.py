@@ -481,23 +481,24 @@ def gen_login():
         </form>
     </div>
     <script>
-        const upload_form = document.querySelector( "#login_form" );
+        const login_form = document.querySelector( "#login_form" );
         login_form.addEventListener("submit", (e) => {
-            const email = document.querySelector("#login_form").value;
-            const password = document.querySelector("#login_form").value;
+            const username = document.querySelector("#username").value;
+            const password = document.querySelector("#password").value;
             e.preventDefault();
-            console.log(email, password);
+            console.log(username, password);
 
             fetch("http://127.0.0.1:8000/login", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer' 
                 },
-                body: JSON.stringify({
-                    "email": email,
+                body: {
+                    "username": username,
                     "password": password
-                })
+                }
             }).then(res => res.json())
                 .then(res => {
                     console.log(res);

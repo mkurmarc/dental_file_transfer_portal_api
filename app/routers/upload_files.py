@@ -1,6 +1,5 @@
-from fastapi import APIRouter, File, Depends
+from fastapi import APIRouter, File, Depends, Form, UploadFile
 from fastapi.responses import HTMLResponse
-from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from ..static import html_generator
 from .. import database, schemas, models, utils, oauth2
@@ -20,15 +19,18 @@ async def get_upload_page(current_user: int = Depends(oauth2.get_current_user)):
 
 
 @router.post("/")
-async def create_upload_file(upload: schemas.Upload):
-    print(upload.patient_first_name + upload.patient_last_name)
-    print(upload.files)
-    file_content = await upload.file.read()
+async def create_upload_file(current_user: int = Depends(oauth2.get_current_user),
+patient_first_name: str = Form(...), patient_last_name: str = Form(...), file_name: str = Form(...),
+files: list[UploadFile] = File(..., description="Upload muitiple files")):
 
-    print(file_content)
-
-    # return {"filenames": [upload.file_name for file in upload.files]}
-    # { "filenames": [filename1, filename2, filename3, ...] }
+    return {"filenames": [file_name for file in files],
+    "patient_first_name": [patient_first_name for file in files]}
+    #{ "filenames": [filename1, filename2, filename3, ...] }
+    '''    
+    print(patient_first_name + patient_last_name)
+    print(files)
+    file_content = await files.read()
+    print(file_content)'''
 
 
 

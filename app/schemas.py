@@ -49,6 +49,7 @@ class Upload(BaseModel):
     patient_last_name: str = Form(...)
     file_name: str = Form(...)
     files: list[UploadFile] = File(..., description="Upload muitiple files") 
+
     ''' using UploadFile without bytes means the file will be saved in spooled memory in background which
     is faster than uploading file using bytes. Can also save it to fastapi server, and can read and write 
     the file.'''

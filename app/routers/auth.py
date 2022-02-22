@@ -17,8 +17,8 @@ router = APIRouter(
 async def get_login_page():
     return html_generator.gen_login()
 
-# returns user upload page if credentials verfiedcredentiuals
-@router.post("/") 
+# returns a JWT token to user if credentials are verified
+@router.post("/", response_model=schemas.Token) 
 def login(user_credentials: OAuth2PasswordRequestForm = Depends(), 
 db: Session = Depends(database.get_db)):
 
@@ -37,7 +37,4 @@ db: Session = Depends(database.get_db)):
 
     return {"access_token": access_token, "token_type": "bearer"} #return token
     
-    '''if True: # creds and isUser are true
-        return HTMLResponse(gen_upload)
-      
-    return RedirectResponse("http://127.0.0.1:8000/login", status_code=302)'''
+    '''  return RedirectResponse("http://127.0.0.1:8000/login", status_code=302)  '''
