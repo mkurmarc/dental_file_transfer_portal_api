@@ -31,5 +31,4 @@ app.include_router(admin.router)
 # Home Page - temporary
 @app.get("/", response_class=HTMLResponse) 
 async def get_home():
-    print(Upload.schema_json(indent=2))
     return gen_home()

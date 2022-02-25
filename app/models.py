@@ -10,7 +10,11 @@ class File(Base):
     __tablename__ = "files"
     id = Column(Integer, primary_key=True, nullable=False)
     file = Column(LargeBinary, nullable=False)
-    file_title = Column(String, nullable=False)
+    file_name = Column(String, nullable=False) # from UploadFile object
+    content_type = Column(String, nullable=False)
+    file_title = Column(String, nullable=False) # user input
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('now()'))
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False) 
     patient_id = Column(Integer, ForeignKey("patients.id", ondelete="CASCADE"),
                         nullable=False)
