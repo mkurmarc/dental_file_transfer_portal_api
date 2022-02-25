@@ -1,6 +1,6 @@
 from pydantic import BaseSettings
 
-
+''' this class allows for secure access to .ENV variables'''
 class Settings(BaseSettings):
     database_hostname: str
     database_port: str
@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
+    f_key: str
     
     class Config:
         env_file = ".env"
