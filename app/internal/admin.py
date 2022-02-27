@@ -9,15 +9,16 @@ router = APIRouter(
     tags=["Administrator"]
 )
 
-# routes for admin only users
+# routes for admin only users; retrieves files from DB and serves them with html, use Jinja template
 @router.get("/", response_class=HTMLResponse)
 async def get_admin_dashboard(admin_user: int = Depends(oauth2.get_admin_user),
-db: Session = Depends(database.get_db), limit: int = 10):
-       
-    # load 10 most recent files uploaded
+db: Session = Depends(database.get_db), limit: int = 10):       
+
     files = []
-    files = db.query(models.File).limit(limit)
-    return gen_admin_dashboard()
+    # load 10 most recent files uploaded
+    files = db.query(models.File).order_by(models.File.created_at).limit(limit) 
+    
+    return gen_admin_dashboard() # return render_template("/login.html", files)
 
 
 @router.post("/")
