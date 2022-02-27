@@ -39,7 +39,8 @@ db: Session = Depends(database.get_db)):
 
     db.add_all(files_to_add)
     db.commit()
-    return {"status": "Success"}
+    # return html or something else to show success of file upload
+    return {"status": "Success"} 
 
 
 
