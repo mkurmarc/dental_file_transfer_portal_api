@@ -1,4 +1,3 @@
-from operator import imod
 from fastapi import APIRouter, File, Depends, Form, UploadFile
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
@@ -43,32 +42,13 @@ db: Session = Depends(database.get_db)):
     return {"status": "Success"} 
 
 
-
-    # files[0].content_type
-    # return {"filenames": [file_title for file in files],
-    # "patient_first_name": [patient_first_name for file in files]}
-    #{ "filenames": [filename1, filename2, filename3, ...] }
-    '''    
+''' files[0].content_type
+    return {"filenames": [file_title for file in files],
+    "patient_first_name": [patient_first_name for file in files]}
+    { "filenames": [filename1, filename2, filename3, ...] }
+        
+        
     print(patient_first_name + patient_last_name)
     print(files)
     file_content = await files.read()
     print(file_content)'''
-'''
-# Use StreamingResponse to iterate over file object 
-
-from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
-
-some_file_path = "large-video-file.mp4"
-app = FastAPI()
-
-
-@app.get("/")
-def main():
-    def iterfile():  # 
-        with open(some_file_path, mode="rb") as file_like:  # 
-            yield from file_like  # 
-
-    return StreamingResponse(iterfile(), media_type="video/mp4")
-
-'''
