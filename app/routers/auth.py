@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, status, HTTPException, Response
+from fastapi import APIRouter, Depends, status, HTTPException, Response, Request
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
-# from app.schemas import UserLogin
-from ..static import html_generator
 from .. import database, schemas, models, utils, oauth2
+from fastapi.templating import Jinja2Templates
+# from app.main import templates
 
 
 router = APIRouter(
@@ -13,9 +13,12 @@ router = APIRouter(
 )
 
 # returns login view
-@router.get("/", response_class=HTMLResponse) 
-async def get_login_page():
-    return html_generator.gen_login()
+# @router.get("/", response_class=HTMLResponse) 
+# async def get_login_page(request: Request):
+
+#     return templates.TemplateResponse("login.html")
+
+
 
 # returns a JWT token to user if credentials are verified
 @router.post("/", response_model=schemas.Token) 
@@ -23,7 +26,7 @@ def login(user_credentials: OAuth2PasswordRequestForm = Depends(),
 db: Session = Depends(database.get_db)):
 
     user = db.query(models.User).filter( # '.username' here because OAuth2PasswordRequestForm  
-        models.User.email == user_credentials.username).first() # saves the data under that variable name
+        models.User.email == user_credentials.username).first() 
                                                                                                              
     if not user:
         raise HTTPException(
