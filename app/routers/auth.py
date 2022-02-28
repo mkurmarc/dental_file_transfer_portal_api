@@ -2,9 +2,7 @@ from fastapi import APIRouter, Depends, status, HTTPException, Response, Request
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
-from .. import database, schemas, models, utils, oauth2
-from fastapi.templating import Jinja2Templates
-# from app.main import templates
+from .. import database, schemas, models, utils, oauth2, config
 
 
 router = APIRouter(
@@ -12,11 +10,13 @@ router = APIRouter(
     tags=['Authentication']
 )
 
-# returns login view
-# @router.get("/", response_class=HTMLResponse) 
-# async def get_login_page(request: Request):
 
-#     return templates.TemplateResponse("login.html")
+# returns login view
+@router.get("/", response_class=HTMLResponse) 
+async def get_login_page(request: Request):
+
+
+    return config.templates.TemplateResponse("login.html", {"request": request})
 
 
 
