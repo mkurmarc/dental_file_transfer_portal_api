@@ -31,8 +31,9 @@ db: Session = Depends(database.get_db)):
     for file in files:
         bytes_file = await file.read()
         encrypted_file = utils.encrypt_file(bytes_file)
-        new_file = models.File(file=encrypted_file, file_name=file.filename, content_type=file.content_type,
-                               file_title=file_title, user_id=current_user.id, patient_id=new_patient.id)
+        new_file = models.File(file=encrypted_file, file_name=file.filename, 
+                               content_type=file.content_type, file_title=file_title, 
+                               user_id=current_user.id, patient_id=new_patient.id)
         files_to_add.append(new_file)                     
         await file.close()
 
