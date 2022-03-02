@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Item Details</title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
     <div class="login">
         <h1>Login</h1>
         <form method="POST" action="http://127.0.0.1:8000/login/" id="login_form">
-            <input class="items" type="text" name="username" id="username" placeholder="your@email.com" 
-                size="30" required>
-            <input class="items" type="password" name="password" id="password" placeholder="password" 
-                size="20" required>
+            <input class="items" type="text" name="username" id="username" placeholder="your@email.com" size="30"
+                required>
+            <input class="items" type="password" name="password" id="password" placeholder="password" size="20"
+                required>
             <input type="submit" value="Login" class="btn btn-primary btn-block btn-large">
         </form>
     </div>
-    <script>
-        const login_form = document.querySelector( "#login_form" );
+    <script type="text/javascript" src="{{ url_for('static', path='/scripts.js') }}"></script>
+    <!-- <script>
+        const axios = require('axios').default;
+
+
+        const login_form = document.querySelector("#login_form");
+
         login_form.addEventListener("submit", (e) => {
             const username = document.querySelector("#username").value;
             const password = document.querySelector("#password").value;
             e.preventDefault();
             console.log(username, password);
 
-            fetch("http://127.0.0.1:8000/login", {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer' 
-                },
-                body: {
-                    "username": username,
-                    "password": password
-                }
-            }).then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                    let inMemoryToken = res.token;
-
-                    localStorage.setItem('user', JSON.stringify(res));
+            function login() {
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:8000/login',
+                    data: {
+                        username: username,
+                        password: username
+                    }
                 })
-        })
+                    .then(function (response) {
+                        console.log(response.data);
+                        console.log(response.status);
+                        console.log(response.headers);
+                    });
+            }
 
-    </script>
+            login();
+        });
+    </script> -->
 </body>
+
 </html>
