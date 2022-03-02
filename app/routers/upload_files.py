@@ -1,8 +1,8 @@
-from fastapi import APIRouter, File, Depends, Form, UploadFile
+from fastapi import APIRouter, File, Depends, Form, UploadFile, Request
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from ..static import html_generator
-from .. import database, schemas, models, utils, oauth2
+from .. import database, schemas, models, utils, oauth2, config
 
 
 router = APIRouter(
@@ -12,9 +12,9 @@ router = APIRouter(
 
 
 @router.get("/", response_class=HTMLResponse)
-async def get_upload_page(current_user: int = Depends(oauth2.get_current_user)):
+async def get_upload_page(request: Request, current_user: int = Depends(oauth2.get_current_user)):
 
-    return html_generator.gen_upload()
+    return config.templates.TemplateResponse("upload_files.html", {"request": request})
 
 
 @router.post("/")

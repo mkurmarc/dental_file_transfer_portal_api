@@ -15,9 +15,7 @@ router = APIRouter(
 @router.get("/", response_class=HTMLResponse) 
 async def get_login_page(request: Request):
 
-
     return config.templates.TemplateResponse("login.html", {"request": request})
-
 
 
 # returns a JWT token to user if credentials are verified

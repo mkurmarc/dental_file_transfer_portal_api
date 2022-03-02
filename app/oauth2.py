@@ -9,8 +9,6 @@ from .config import settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login') # the path api for login
 
-# SECRET_KEY
-# Algorithm
 # Expiration time of the token, aka how long the user can be logged in
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
