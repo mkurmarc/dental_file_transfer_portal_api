@@ -18,19 +18,15 @@
             <input type="submit" value="Login" class="btn btn-primary btn-block btn-large">
         </form>
     </div>
-    <script type="text/javascript" src="{{ url_for('static', path='/scripts.js') }}"></script>
-    <!-- <script>
+    <script>
         const axios = require('axios').default;
 
-
         const login_form = document.querySelector("#login_form");
-
         login_form.addEventListener("submit", (e) => {
             const username = document.querySelector("#username").value;
             const password = document.querySelector("#password").value;
             e.preventDefault();
             console.log(username, password);
-
             function login() {
                 axios({
                     method: 'post',
@@ -40,16 +36,18 @@
                         password: username
                     }
                 })
-                    .then(function (response) {
-                        console.log(response.data);
-                        console.log(response.status);
-                        console.log(response.headers);
-                    });
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log(response.status);
+                    console.log(response.headers);
+                });
             }
-
             login();
+
         });
-    </script> -->
+    </script>
+    <!-- <script src="{{ url_for('static', path='/scripts.js') }}"></script> -->
+
 </body>
 
 </html>

@@ -1,66 +1,79 @@
-const axios = require('axios').default;
+const loginForm = document.querySelector( "#login_form" );
+const username = document.querySelector("#username").value;
+const password = document.querySelector("#password").value;
 
 
-const login_form = document.querySelector( "#login_form" );
+let formdata = new FormData();
+formdata.append("username", username);
+formdata.append("password", password);
 
-login_form.addEventListener("submit", (e) => {
-    const username = document.querySelector("#username").value;
-    const password = document.querySelector("#password").value;
+let requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+//   headers : {
+//       'Content-Type': 'application/json'
+//   }
+};
+
+
+loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(username, password);
+    fetch("http://127.0.0.1:8000/login", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 
-    function login() {
-        axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/login',
-            data: {
-                username: username,
-                password: username
-            }
-        })
-        .then(function (response) {
-            console.log(response.data);
-            console.log(response.status);
-            console.log(response.headers);
-        });
-    }
-
-    login();
-    // axios.post('/login', {
-    //     username: username,
-    //     password: password
-    // })
-    // .then(function (response) {
-
-    // })
 });
 
 
-// const login_form = document.querySelector( "#login_form" );
 
-// login_form.addEventListener("submit", (e) => {
-//     const username = document.querySelector("#username").value;
-//     const password = document.querySelector("#password").value;
-//     e.preventDefault();
-//     console.log(username, password);
+// fetch("http://127.0.0.1:8000/login", {
+//     method: 'post',
+//     headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     body: {
+//         "username": username,
+//         "password": password
+//     }            
+// })
+// .then((res) => {
+//     console.log(res);
+// });    
+
+
+
+
+// fetch("http://127.0.0.1:8000/login", {
+//     method: 'get',
+//     headers: {
+//         'Authorization': 'Bearer '  
+//     },
+//     body: {
+//         "username": username,
+//         "password": password
+//     }
+    
+// })
+
+
+
+
+// function makeTwoRequests() {
 
 //     fetch("http://127.0.0.1:8000/login", {
 //         method: 'post',
 //         headers: {
-//             'Accept': 'application/json, text/plain, */*',
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Bearer' 
+//             'Content-Type': 'application/x-www-form-urlencoded'
 //         },
 //         body: {
 //             "username": username,
 //             "password": password
-//         }
-        
-//     }).then(res => res.json())
-//         .then(res => {
-//             console.log(res);
-//             let inMemoryToken = res.token;
-
-//             localStorage.setItem('user', JSON.stringify(res));
-//         })
-// })
+//         }            
+//     })
+//     .then((res) => {
+//         console.log(res);
+//     });    
+    
+// };
