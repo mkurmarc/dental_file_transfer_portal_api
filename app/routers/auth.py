@@ -8,7 +8,7 @@ from .. import database, schemas, models, utils, oauth2, config
 router = APIRouter(
     prefix="/login",
     tags=['Authentication']
-)
+) 
 
 
 # returns login view
