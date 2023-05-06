@@ -2,5 +2,6 @@ __pycache__
 venv/
 .env
 .vscode
+env
 app/static/scratch.html
 app/static/scratch_2.html
