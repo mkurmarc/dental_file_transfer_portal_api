@@ -2,7 +2,7 @@ from fastapi import status, Depends, APIRouter
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
-from ..static import html_generator
+# from ..static import html_generator
 from .. import database, schemas, models, utils, oauth2
 
 # prefix = adds the string to the beginning of each path op
@@ -14,9 +14,9 @@ router = APIRouter(
 
 '''FIX: How do i send an email for user registration?'''
 # path op GETs the create user page to render
-@router.get("/", response_class=HTMLResponse) 
-async def get_create_page():
-    return html_generator.gen_create_user()
+# @router.get("/", response_class=HTMLResponse) 
+# async def get_create_page():
+#     return html_generator.gen_create_user()
 
 
 # creates new user

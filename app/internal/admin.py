@@ -1,6 +1,5 @@
 from fastapi import APIRouter, File, Depends
 from fastapi.responses import HTMLResponse
-from app.static.html_generator import gen_admin_dashboard
 from sqlalchemy.orm import Session 
 from app import database, schemas, models, utils, oauth2
 
