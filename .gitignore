@@ -1,7 +1,4 @@
 __pycache__
-venv/
+env/
 .env
 .vscode
-env
-app/static/scratch.html
-app/static/scratch_2.html

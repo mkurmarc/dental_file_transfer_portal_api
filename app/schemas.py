@@ -42,7 +42,7 @@ class UserCreate(BaseModel):
     #         SecretStr: lambda v: v.get_secret_value() if v else None
     #     }
 
-'''/file route'''
+'''/upload-files POST'''
 # incoming - files and names assoc
 class Upload(BaseModel):
     patient_first_name: str = Form(...)
@@ -54,12 +54,12 @@ class Upload(BaseModel):
     is faster than uploading file using bytes. Can also save it to fastapi server, and can read and write 
     the file.'''
 
-# incoming
+'''/login GET'''
+# outgoing
 class Token(BaseModel):
     access_token: str
     token_type: str
 
-# outgoing
 class TokenData(BaseModel):
     id: Optional[str] = None
 

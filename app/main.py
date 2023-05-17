@@ -31,9 +31,3 @@ app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(upload_files.router)
 app.include_router(admin.router)
-
-# Home Page - temporary
-@app.get("/", response_class=HTMLResponse) 
-async def get_login_page(request: Request):
-
-    return config.templates.TemplateResponse("login.html", {"request": request})

@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/marcrios/CodeProjects/dental_upload_app/env"
+set -gx VIRTUAL_ENV "/Users/marcrios/CodeProjects/dental_file_transfer_portal_api/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
