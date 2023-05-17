@@ -8,7 +8,6 @@ from .database import engine
 from . import models, config
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
-from app.static.html_generator import gen_home
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
