@@ -10,10 +10,10 @@ router = APIRouter(
 )
 
 # returns data necessary for frontend upload files page
-@router.get("/", response_class=JSONResponse)
-async def get_upload_page(request: Request, current_user: int = Depends(oauth2.get_current_user)):
+# @router.get("/", response_class=JSONResponse)
+# async def get_upload_page(request: Request, current_user: int = Depends(oauth2.get_current_user)):
 
-    return {"data": "payload"}
+#     return {"data": "payload"}
 
 
 @router.post("/")
